@@ -72,6 +72,11 @@ export function loadModels(scene) {
           velocity,
           trail: info.orbitingTrail,
           trailLine: null,
+          name: planetName,
+          orbitingRadius: radius,
+          trailLineColor: info.orbitingTrailColor,
+          orbiting: true,
+          orbitingSpeed: info.orbitingSpeed,
         });
       }
     });

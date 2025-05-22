@@ -5,7 +5,7 @@ import { startFollowingPlanet } from './camera/cameraFollowState.js';
 import { setupControls } from './scene/orbitControls.js';
 import { setupInfoPanel } from './ui/infoPanel.js';
 import { initFlyout, openFlyout } from './ui/flyout.js';
-import { PhysicsInfoMap } from './data/physicsData.js';
+import { setCurrentPlanet } from './camera/navigation.js';
 import * as THREE from 'three';
 
 initFlyout();
@@ -34,6 +34,7 @@ function onClick(event) {
       console.warn("Clicked mesh doesn't map to a planet model");
       return;
     }
+    setCurrentPlanet(clickedMesh.name);
     startFollowingPlanet(planetModel);
     openFlyout(clickedMesh.name);
   }

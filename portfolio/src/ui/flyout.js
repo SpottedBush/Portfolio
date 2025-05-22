@@ -29,6 +29,7 @@ export function openFlyout(planetName) {
   const data = planetInfoMap[planetName];
   if (!data) {
     console.warn(`No flyout data found for planet: ${planetName}`);
+    console.log(planetName);
     return;
   }
 
