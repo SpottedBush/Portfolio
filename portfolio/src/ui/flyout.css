@@ -1,0 +1,50 @@
+.flyout-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  padding: 20px;
+  background: #111;
+  color: white;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.flyout-panel.open {
+  transform: translateX(0);
+}
+
+.flyout-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.flyout-icon {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.flyout-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.flyout-description {
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.flyout-link {
+  color: #00aaff;
+  text-decoration: underline;
+}

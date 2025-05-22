@@ -7,6 +7,6 @@ export function setupInfoPanel() {
   panel.style.color = 'white';
   panel.style.padding = '10px';
   panel.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-  panel.innerHTML = '<h2>Solar Portfolio</h2><p>Click planets to learn more.</p>';
+  panel.innerHTML = '<h2>Vincent Tardieux\'s Portfolio</h2><p>Click planets to learn more.</p>';
   document.body.appendChild(panel);
 }
