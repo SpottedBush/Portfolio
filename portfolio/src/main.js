@@ -2,8 +2,6 @@ import { setupScene } from './scene/setupScene.js';
 import { loadModels, clickableObjects, meshToModelMap } from './scene/loadModels.js';
 import { animate } from './scene/animationLoop.js';
 import { startFollowingPlanet } from './camera/cameraFollowState.js';
-import { setupControls } from './scene/orbitControls.js';
-import { setupInfoPanel } from './ui/infoPanel.js';
 import { initFlyout, openFlyout } from './ui/flyout.js';
 import { setCurrentPlanet } from './camera/navigation.js';
 import * as THREE from 'three';
@@ -11,8 +9,6 @@ import * as THREE from 'three';
 initFlyout();
 
 const { scene, camera, renderer } = setupScene();
-setupControls(camera, renderer);
-setupInfoPanel();
 loadModels(scene);
 animate(scene, camera, renderer);
 

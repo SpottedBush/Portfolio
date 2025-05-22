@@ -48,3 +48,21 @@
   color: #00aaff;
   text-decoration: underline;
 }
+
+#flyout {
+  position: fixed;
+  top: 60px; /* Equal to header height */
+  left: 0;
+  width: 300px;
+  height: calc(100% - 60px); /* Full height minus header */
+  background-color: #111;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  color: white;
+  overflow-y: auto;
+  z-index: 999;
+  display: none;
+}
+#flyout.open {
+  display: block;
+}
