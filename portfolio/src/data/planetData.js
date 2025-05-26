@@ -10,7 +10,7 @@ export const planetInfoMap = {
         problem approach to disentangle the polarized and unpolarized environmental light from stellar leakage. This led to a publication \
         at the GRETSI 2025 conference.',
         link: 'https://github.com/SpottedBush/PADI',
-        icon: 'icons/PADI_icon.jpg',
+        icon: 'icons/padi_icon.jpg',
         modelPath: 'planets/black_hole.glb',
         modelScale: 5,
         modelRotSpeed: 0.0015,
@@ -25,11 +25,11 @@ export const planetInfoMap = {
         description: 'The observation of circumstellar environments helps in understanding planetary formation processes. \
         However, this observation is complicated by stellar leakage, which is a thousand to ten thousand times stronger than the disk\'s \
         intensity. It is possible to extract the light from the environment by exploiting the rotational or polarization invariance of \
-        stellar leakage, but no existing method jointly leverages both. This is why we introduce PADI, a method based on the inverse \
+        stellar leakage, but no existing method jointly leverages both. This is why I made PADI, a method based on the inverse \
         problem approach to disentangle the polarized and unpolarized environmental light from stellar leakage. This led to a publication \
         at the GRETSI 2025 conference.',
         link: 'https://github.com/SpottedBush/PADI',
-        icon: 'icons/PADI_icon.jpg',
+        icon: 'icons/padi_icon.jpg',
         modelPath: 'planets/telescope.glb',
         modelScale: 5,
         modelRotSpeed: 0.01,
@@ -74,7 +74,7 @@ export const planetInfoMap = {
         name: 'Conformal Prediction',
         description: 'Stochastic applied to regression and classification, contains Conformal prediction applied to Regression and Classification also Quantile Regression in the context of banking credits',
         link: 'https://github.com/SpottedBush/ConformalPrediction',
-        icon: 'assets/icons/conformal_prediction_icon.png',
+        icon: 'icons/conformal_prediction_icon.png',
         modelPath: 'planets/coin.glb',
         modelScale: 20,
         modelRotSpeed: 0.001,
@@ -106,7 +106,7 @@ export const planetInfoMap = {
         name: 'Icarusight',
         description: 'Community detection algorithm on graphs for Cdiscount in order to detect doubloons.',
         link: 'https://github.com/SpottedBush/Icarusight',
-        icon: 'assets/icons/icarusight.png',
+        icon: 'icons/icarusight_icon.png',
         modelPath: 'planets/graph_planet.glb',
         modelScale: 1.5,
         modelRotSpeed: 0.001,
