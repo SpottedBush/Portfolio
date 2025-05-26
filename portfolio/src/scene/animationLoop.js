@@ -28,11 +28,17 @@ export function animate(scene, camera, renderer) {
 
   function updateRotations() {
     rotatingModels.forEach(({ model, rotSpeed, modelFile }) => {
-      if (modelFile === 'Comet.glb') {
-        model.rotation.z += rotSpeed;
+      if (modelFile === 'planets/black_hole.glb') {
+        model.rotation.y += rotSpeed;
+      }
+      else if (modelFile === 'planets/telescope.glb'
+        || modelFile === 'planets/binoculars.glb'
+        || modelFile === 'planets/suv.glb') {
+        model.rotation.y += rotSpeed;
       }
       else {
-        model.rotation.y -= rotSpeed;
+        model.rotation.x += rotSpeed;
+        model.rotation.y += rotSpeed;
       }
     });
   }

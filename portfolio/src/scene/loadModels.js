@@ -28,8 +28,28 @@ function calculateTangentialVelocity(position, speedMultiplier = 1) {
   return perpendicular.multiplyScalar(speed);
 }
 
+function addStarField(scene) {
+  const starCount = 10000;
+  const geometry = new THREE.BufferGeometry();
+  const positions = [];
+
+  for (let i = 0; i < starCount; i++) {
+    const x = (Math.random() - 0.5) * 3000;
+    const y = (Math.random() - 0.5) * 3000;
+    const z = (Math.random() - 0.5) * 3000;
+    positions.push(x, y, z);
+  }
+
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+
+  const material = new THREE.PointsMaterial({ color: 0xffffff, size: 1 });
+  const stars = new THREE.Points(geometry, material);
+  scene.add(stars);
+}
+
 
 export function loadModels(scene) {
+  addStarField(scene); // Add star field to the scene
   const loader = new GLTFLoader();
 
   Object.entries(planetInfoMap).forEach(([planetName, info]) => {
@@ -49,8 +69,17 @@ export function loadModels(scene) {
           meshToModelMap.set(child, model);         // Track parent model
         }
       });
-      scene.add(model);
+      if (planetName === "HexClient") {
+        // Inner core light (center of the planet)
+        const coreLight = new THREE.PointLight(0xFF4500, 10000, 5, 2);
+        coreLight.position.set(0, 0, 0);
+        model.add(coreLight);
 
+        const ambientGlow = new THREE.PointLight(0xFF4500, 10, 100);
+        ambientGlow.position.set(0, 0, 0);
+        model.add(ambientGlow);
+      }
+      scene.add(model);
       // Self-rotation
       rotatingModels.push({ model, rotSpeed: info.modelRotSpeed ?? 0.01, modelFile: info.modelPath });
 

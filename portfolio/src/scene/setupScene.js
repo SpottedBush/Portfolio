@@ -8,7 +8,7 @@ const BLACK_HOLE_POSITION = PhysicsInfoMap.blackHolePosition; // optional export
 export function setupScene() {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
-
+  
   const camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,

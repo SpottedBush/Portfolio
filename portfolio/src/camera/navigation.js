@@ -28,7 +28,7 @@ export function setCurrentPlanet(mesh) {
 
 document.addEventListener('keydown', (e) => {
   if (!currentPlanet) {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
         showPlanetAtIndex(0);
     }
     return;
