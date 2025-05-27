@@ -1,6 +1,6 @@
 // File: src/scene/animationLoop.js
 import * as THREE from 'three';
-import { rotatingModels, orbitingBodies } from './loadModels.js';
+import { animatedMixers, rotatingModels, orbitingBodies } from './loadModels.js';
 import { updateCameraFollowing } from '../camera/cameraFollowState.js';
 import { PhysicsInfoMap } from '../data/physicsData.js';
 
@@ -29,11 +29,13 @@ export function animate(scene, camera, renderer) {
   function updateRotations() {
     rotatingModels.forEach(({ model, rotSpeed, modelFile }) => {
       if (modelFile === 'planets/black_hole.glb') {
-        model.rotation.y += rotSpeed;
+        model.rotation.y -= rotSpeed;
       }
       else if (modelFile === 'planets/telescope.glb'
         || modelFile === 'planets/binoculars.glb'
-        || modelFile === 'planets/suv.glb') {
+        || modelFile === 'planets/suv.glb'
+        || modelFile === 'planets/c_planet.glb'
+        || modelFile === 'planets/enchanted_book.glb') {
         model.rotation.y += rotSpeed;
       }
       else {
@@ -91,9 +93,12 @@ export function animate(scene, camera, renderer) {
     }
   }
 
+  const clock = new THREE.Clock();
   function loop() {
     requestAnimationFrame(loop);
 
+    const delta = clock.getDelta();
+    animatedMixers.forEach((mixer) => mixer.update(delta));
     updateRotations();
     updateCameraFollowing(camera);
     renderer.render(scene, camera);

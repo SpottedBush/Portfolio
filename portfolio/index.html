@@ -2,11 +2,17 @@
 <header id="site-header">
   <div class="header-content">
     <nav class="social-links">
-      <a href="https://github.com/SpottedBush" target="_blank" aria-label="GitHub">
+      <a href="https://github.com/SpottedBush" aria-label="GitHub">
         <img src="icons/github_icon.png" alt="GitHub" />
       </a>
-      <a href="https://www.linkedin.com/in/vincent-tardieux-74b216262/" target="_blank" aria-label="LinkedIn">
+      <a href="https://www.linkedin.com/in/vincent-tardieux-74b216262/" aria-label="LinkedIn">
         <img src="icons/linkedin_icon.png" alt="LinkedIn" />
+      </a>
+      <a href="https://www.twitch.tv/spottedbush" aria-label="Twitch">
+        <img src="icons/twitch_icon.png" alt="Twitch" />
+      </a>
+      <a href="https://www.youtube.com/@SpottedBush" aria-label="YouTube">
+        <img src="icons/youtube_icon.png" alt="YouTube" />
       </a>
       <a href="mailto:vincenttardieux22@gmail.com" aria-label="Email">
         <img src="icons/mail_icon.png" alt="Email" />
@@ -33,9 +39,29 @@
   <div id="flyout" class="flyout-panel">
     <button id="flyout-close" class="flyout-close-btn">✕</button>
     <img id="flyout-icon" class="flyout-icon" src="" alt="" />
-    <h2 id="flyout-title" class="flyout-title">Project Title</h2>
+    <h2 id="flyout-title">
+      <span id="flyout-title-text"></span>
+      <span id="flyout-location" style="font-weight: normal; font-size: 0.9em; margin-left: 10px; color: #aaa;"></span>
+    </h2>
     <p id="flyout-description" class="flyout-description">Project description goes here...</p>
+    <p id="flyout-skills-label">Skills:</p>
+    <ul id="flyout-skills"></ul>
     <a id="flyout-link" class="flyout-link" href="#" target="_blank">View Project</a>
+    <div id="flyout-year"></div>
+    <div id="flyout-model-reference"></div>
+
     <link rel="stylesheet" href="css/flyout.css">
+  </div>
+
+
+  <div id="nav-help-container">
+    <div id="nav-help-button">?</div>
+      <div id="nav-instructions">
+        Use <strong>Left</strong> / <strong>Right arrows</strong> to navigate between projects.<br>
+        Press <strong>Spacebar</strong> or <strong>Enter</strong> to go to next project.<br>
+        Press <strong>Escape</strong> to close the flyout panel.<br>
+        You can also click on the planets to open the flyout.<br>
+        Click on the <strong>black hole</strong> to know more about me.<br>
+      </div>
   </div>
 </html>

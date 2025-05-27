@@ -29,7 +29,7 @@ export function setCurrentPlanet(mesh) {
 document.addEventListener('keydown', (e) => {
   if (!currentPlanet) {
     if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-        showPlanetAtIndex(0);
+        showPlanetAtIndex(-1);
     }
     return;
   }
@@ -42,8 +42,8 @@ document.addEventListener('keydown', (e) => {
       }
 
     else if (e.key === 'ArrowRight') {
-        showPlanetAtIndex(currentPlanetIndex + 1);
-    } else if (e.key === 'ArrowLeft') {
         showPlanetAtIndex(currentPlanetIndex - 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'Enter' || e.key === ' ') {
+        showPlanetAtIndex(currentPlanetIndex + 1);
     }
 });

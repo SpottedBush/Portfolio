@@ -7,6 +7,7 @@ import { planetInfoMap } from '../data/planetData.js';
 export const clickableObjects = [];
 export const meshToModelMap = new Map(); // new: map mesh -> parent model
 
+export const animatedMixers = [];
 export const rotatingModels = [];
 export const orbitingBodies = [];
 
@@ -34,9 +35,9 @@ function addStarField(scene) {
   const positions = [];
 
   for (let i = 0; i < starCount; i++) {
-    const x = (Math.random() - 0.5) * 3000;
-    const y = (Math.random() - 0.5) * 3000;
-    const z = (Math.random() - 0.5) * 3000;
+    const x = 500 + (Math.random() - 0.5) * 3000;
+    const y = 500 + (Math.random() - 0.5) * 3000;
+    const z = 500 + (Math.random() - 0.5) * 3000;
     positions.push(x, y, z);
   }
 
@@ -80,6 +81,19 @@ export function loadModels(scene) {
         model.add(ambientGlow);
       }
       scene.add(model);
+      
+      // Animation setup
+      if (planetName === "Education"){
+        const mixer = new THREE.AnimationMixer(model);
+        gltf.animations.forEach((clip) => {
+          mixer.clipAction(clip).play();
+        });
+        animatedMixers.push(mixer);
+        undefined, (error) => {
+          console.error('Error loading animated glb:', error);
+        }
+      }
+
       // Self-rotation
       rotatingModels.push({ model, rotSpeed: info.modelRotSpeed ?? 0.01, modelFile: info.modelPath });
 

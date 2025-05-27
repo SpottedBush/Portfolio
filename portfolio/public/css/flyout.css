@@ -19,10 +19,10 @@
 
 .flyout-close-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0.2px;
+  right: 0.2px;
   background: transparent;
-  color: white;
+  color: grey;
   border: none;
   font-size: 1.2em;
   cursor: pointer;
@@ -65,4 +65,54 @@
 }
 #flyout.open {
   display: block;
+}
+
+#flyout-skills {
+  margin: 10px 0;
+  padding-left: 20px;
+  list-style-type: disc;
+  color: white;
+}
+
+#flyout-year {
+  margin-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+  color: #aaa;
+}
+/* Add a hover effect for the flyout panel */
+.flyout-panel:hover {
+  background: #222;
+}
+
+#flyout-skills-label {
+  margin-top: 10px;
+  font-weight: bold;
+  color: white;
+}
+
+#flyout-location {
+  color: #ccc;
+  font-style: italic;
+}
+
+#flyout-model-reference {
+  position: relative;
+  bottom: -15px;
+  font-size: 0.9em;
+  color: #888;
+  font-style: italic;
+  max-width: 300px;
+}
+
+#flyout-model-reference a {
+  color: #4ea1f3;  /* soft, modern blue */
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s ease;
+}
+
+#flyout-model-reference a:hover {
+  color: #72c1ff;  /* lighter on hover */
+  text-decoration: underline;
 }
