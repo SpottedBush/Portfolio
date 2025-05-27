@@ -6,7 +6,7 @@ export const planetInfoMap = {
         description: 'A passionate data scientist and software engineer with a focus on machine learning, data analysis, and software development.',
         skills: ["Hard-worker", "Patience", "Teamwork", 
             "Machine Learning", "Data Science", "Software Development",
-            "Chess Player", "Video Games (League of Legends, Outer Wild)", "Streamer", "Space Lover",
+            "Chess Player", "Video Games (League of Legends, Outer Wilds)", "Streamer", "Space Lover",
             "Python, Java, Javascript, C#, C++, C, Julia",
             "French, English, German"],
         year: "22 years old",
