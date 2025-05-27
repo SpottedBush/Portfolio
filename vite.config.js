@@ -1,4 +1,6 @@
 // vite.config.js
-export default {
+import { defineConfig } from 'vite'
+
+export default defineConfig({
   base: '/Portfolio/',
-}
+})
