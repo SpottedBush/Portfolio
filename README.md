@@ -16,12 +16,10 @@
 
 ## 🛠️ Tech Stack
 
+- [JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - [Three.js](https://threejs.org/) – 3D rendering engine
 - [Vite](https://vitejs.dev/) – Lightning-fast bundler
 - [Blender](https://www.blender.org/) - For creating my own 3D models
-- [GLTFLoader](https://threejs.org/docs/#examples/en/loaders/GLTFLoader) – For 3D models
-- [OrbitControls](https://threejs.org/docs/#examples/en/controls/OrbitControls) – For camera movement
-- [JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 ---
 
