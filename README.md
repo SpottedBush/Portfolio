@@ -1,9 +1,9 @@
-# 🌌 Portfolio – Built with Three.js & Vite
+# 🌌 Portfolio
 ![screenshot](public/preview.png)
 
 ---
 
-## Features
+## ✨ Features
 
 - 3D Black hole system with real physics
 - Clickable planets that reveal detailed project info
