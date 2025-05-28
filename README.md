@@ -18,6 +18,7 @@
 
 - [Three.js](https://threejs.org/) – 3D rendering engine
 - [Vite](https://vitejs.dev/) – Lightning-fast bundler
+- [Blender](https://www.blender.org/) - For creating my own 3D models
 - [GLTFLoader](https://threejs.org/docs/#examples/en/loaders/GLTFLoader) – For 3D models
 - [OrbitControls](https://threejs.org/docs/#examples/en/controls/OrbitControls) – For camera movement
 - [JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
@@ -28,11 +29,17 @@
 
 <pre>
 ├── public/ # Static assets (images, models, textures)
+│ ├── css/ - Css files (for styling the html objects)
+│ ├── icons/ - Images for CTA icons, projects overview.
+│ ├── planets/ - 3D Models under glb format
+│ └── preview.png - The picture used in the first section of this ReadMe.md
 ├── src/ # Source code
-│ ├── components/ # Reusable scene components and UI logic
-│ ├── scenes/ # Scene and environment setup
-│ ├── utils/ # Helper functions (e.g., camera, loading)
+│ ├── camera/ # Camera navigation logic
+│ ├── data/ # Physic constants and projects data 
+│ ├── scene/ # Scene and environment setup
+│ ├── ui/ # UI logic
 │ └── main.js # App entry point
 ├── vite.config.js # Vite configuration
-└── index.html # Main HTML file
+├── index.html # Main HTML file
+└── package.json # JSON scrips and dependencies
 <pre>
