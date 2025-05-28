@@ -42,4 +42,3 @@
 ├── vite.config.js # Vite configuration
 ├── index.html # Main HTML file
 └── package.json # JSON scrips and dependencies
-<pre>
