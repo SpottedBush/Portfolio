@@ -4,13 +4,13 @@
   top: 0;
   bottom: 0;
   width: 300px;
-  padding: 20px;
+  /* padding: 20px; */
   background: #111;
   color: white;
   overflow-y: auto;
-  transform: translateX(-100%);
+  /* transform: translateX(-100%); */
   transition: transform 0.3s ease;
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .flyout-panel.open {
@@ -51,16 +51,14 @@
 
 #flyout {
   position: fixed;
-  top: 60px; /* Equal to header height */
   left: 0;
   width: 300px;
-  height: calc(100% - 60px); /* Full height minus header */
   background-color: #111;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0,0,0,0.5);
   color: white;
   overflow-y: auto;
-  z-index: 999;
+  z-index: 9999;
   display: none;
 }
 #flyout.open {
