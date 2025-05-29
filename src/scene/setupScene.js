@@ -15,7 +15,7 @@ export function setupScene() {
     0.1,
     6000
   );
-
+  
   // Initial camera position
   camera.position.copy(DEFAULT_CAMERA_OFFSET);
   camera.lookAt(BLACK_HOLE_POSITION);

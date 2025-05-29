@@ -48,6 +48,23 @@ function addStarField(scene) {
   scene.add(stars);
 }
 
+export function addHitbox(planetMesh, planetName){
+  const radius = planetInfoMap[planetName]?.hitboxRadius ?? 1;
+  const hitboxGeometry = new THREE.SphereGeometry(radius, 32, 32);
+  const hitboxMaterial = new THREE.MeshBasicMaterial({
+      transparent: true,
+      opacity: 0.0, // fully invisible
+      depthWrite: false // avoid z-fighting
+  });
+  const hitbox = new THREE.Mesh(hitboxGeometry, hitboxMaterial);
+  hitbox.name = planetName;
+  hitbox.position.copy(planetMesh.position);
+  hitbox.isHitbox = true; // Custom property to identify hitboxes
+  planetMesh.add(hitbox);
+  clickableObjects.push(hitbox);
+  meshToModelMap.set(hitbox, planetMesh); 
+}
+
 
 export function loadModels(scene) {
   addStarField(scene); // Add star field to the scene
@@ -56,8 +73,7 @@ export function loadModels(scene) {
   Object.entries(planetInfoMap).forEach(([planetName, info]) => {
     loader.load(info.modelPath, (gltf) => {
       const model = gltf.scene;
-
-      // model.position.copy(info.modelPosition);
+      scene.add(model);
       
       model.scale.setScalar(info.modelScale ?? 1);
       model.traverse((child) => {
@@ -70,6 +86,7 @@ export function loadModels(scene) {
           meshToModelMap.set(child, model);         // Track parent model
         }
       });
+      addHitbox(model, planetName); // Add hitbox to the model
       if (planetName === "HexClient") {
         // Inner core light (center of the planet)
         const coreLight = new THREE.PointLight(0xFF4500, 10000, 5, 2);
@@ -80,7 +97,6 @@ export function loadModels(scene) {
         ambientGlow.position.set(0, 0, 0);
         model.add(ambientGlow);
       }
-      scene.add(model);
       
       // Animation setup
       if (planetName === "Education"){

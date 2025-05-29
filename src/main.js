@@ -25,7 +25,6 @@ function onClick(event) {
   if (intersects.length > 0) {
     const clickedMesh = intersects[0].object;
     const planetModel = meshToModelMap.get(clickedMesh);
-
     if (!planetModel) {
       console.warn("Clicked mesh doesn't map to a planet model");
       return;
@@ -35,8 +34,22 @@ function onClick(event) {
     openFlyout(clickedMesh.name);
   }
 }
-window.addEventListener('click', onClick);
 
+function onWindowResize() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  // Update camera aspect and projection
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+
+  // Update renderer size
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(window.devicePixelRatio);
+}
+
+window.addEventListener('click', onClick);
+window.addEventListener('resize', onWindowResize);
 
 window.onFlyoutClosed = () => {
   document.querySelector('#flyout button').addEventListener('click', () => {

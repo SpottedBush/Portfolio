@@ -76,6 +76,7 @@ export function animate(scene, camera, renderer) {
 
     if (body.trailLine) {
       scene.remove(body.trailLine);
+      body.trailLine.geometry.dispose();
     }
 
     const geometry = new THREE.BufferGeometry().setFromPoints(trail);

@@ -1,4 +1,4 @@
-import { orbitingBodies, meshToModelMap } from '../scene/loadModels.js';
+import { orbitingBodies } from '../scene/loadModels.js';
 import { startFollowingPlanet, stopFollowingPlanet } from '../camera/cameraFollowState.js';
 import { openFlyout, closeFlyout } from '../ui/flyout.js';
 
