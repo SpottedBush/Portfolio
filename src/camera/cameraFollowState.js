@@ -22,6 +22,8 @@ export function startFollowingPlanet(planetMesh) {
 export function stopFollowingPlanet() {
   cameraFollowState.active = false;
   cameraFollowState.target = null;
+  window.camera.position.copy(DEFAULT_CAMERA_OFFSET);
+  window.camera.lookAt(cameraFollowState.blackHolePosition);
 }
 
 export function updateCameraFollowing(camera) {
@@ -29,12 +31,10 @@ export function updateCameraFollowing(camera) {
 if (
     !state.active ||
     !state.target ||
-    state.target.position.equals(state.blackHolePosition)
-) {
-    camera.position.copy(DEFAULT_CAMERA_OFFSET);
-    camera.lookAt(state.blackHolePosition);
-    return;
-}
+    state.target.position.equals(state.blackHolePosition)) 
+    {
+      return;
+    }
   const planet = state.target;
   const bhPos = state.blackHolePosition;
   const planetPos = planet.position.clone();

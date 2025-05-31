@@ -62,9 +62,8 @@ export function addHitbox(planetMesh, planetName){
   hitbox.isHitbox = true; // Custom property to identify hitboxes
   planetMesh.add(hitbox);
   clickableObjects.push(hitbox);
-  meshToModelMap.set(hitbox, planetMesh); 
+  meshToModelMap.set(hitbox, planetMesh);
 }
-
 
 export function loadModels(scene) {
   addStarField(scene); // Add star field to the scene
@@ -129,7 +128,7 @@ export function loadModels(scene) {
         orbitingBodies.push({
           mesh: model,
           velocity,
-          trail: info.orbitingTrail,
+          trail: info.orbitingTrail ?? null,
           trailLine: null,
           name: planetName,
           orbitingRadius: radius,

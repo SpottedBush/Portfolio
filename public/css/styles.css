@@ -103,4 +103,6 @@ html, body {
 
 canvas {
   display: block;
+  z-index: 0;
+  pointer-events: auto;
 }

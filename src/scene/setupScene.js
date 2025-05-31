@@ -16,6 +16,7 @@ export function setupScene() {
     0.1,
     6000
   );
+  
   // Initial camera position
   camera.position.copy(DEFAULT_CAMERA_OFFSET);
   camera.lookAt(BLACK_HOLE_POSITION);
@@ -30,6 +31,8 @@ export function setupScene() {
   const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
   directionalLight.position.set(0, 50, 50);
   scene.add(directionalLight);
-
+  window.camera = camera;
+  window.renderer = renderer;
+  window.scene = scene;
   return { scene, camera, renderer };
 }

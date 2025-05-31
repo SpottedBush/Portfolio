@@ -48,8 +48,18 @@ export function animate(scene, camera, renderer) {
   function updateOrbitingBodies(deltaTime) {
     orbitingBodies.forEach((body) => {
       const { mesh, velocity } = body;
-
-      // Calculate gravitational acceleration
+      if (body.name === 'RocketShip') {
+        // Object.entries(body).forEach(([key, value]) => {
+        //   console.log(`${key}:`, value);
+        // });
+        // RocketShip is not affected by the black hole
+        mesh.position.add(velocity.clone().multiplyScalar(deltaTime));
+        return;
+      }
+      if (mesh.position === undefined){
+        console.warn(`Body ${body.name} does not have a position defined.`);
+        return;
+      }
       const pos = mesh.position;
       const dir = new THREE.Vector3().subVectors(blackHolePosition, pos);
       const distanceSq = dir.lengthSq();
@@ -62,13 +72,14 @@ export function animate(scene, camera, renderer) {
       pos.add(velocity.clone().multiplyScalar(deltaTime));
 
       // Update orbit trail
+      if (body.trail) {
       updateTrail(scene, body);
+      }
     });
   }
 
   function updateTrail(scene, body) {
     const { mesh, trail } = body;
-
     trail.push(mesh.position.clone());
     if (trail.length > maxTrailLength) {
       trail.shift();
@@ -98,6 +109,9 @@ export function animate(scene, camera, renderer) {
   function loop() {
     requestAnimationFrame(loop);
 
+    if (window.orbitControls) { // But it should not exists... Right? ;)
+      window.orbitControls.update();
+    }
     const delta = clock.getDelta();
     animatedMixers.forEach((mixer) => mixer.update(delta));
     updateRotations();

@@ -1,10 +1,13 @@
 import { setupScene } from './scene/setupScene.js';
-import { loadModels, clickableObjects, meshToModelMap } from './scene/loadModels.js';
+import { loadModels, clickableObjects, meshToModelMap, orbitingBodies } from './scene/loadModels.js';
 import { animate } from './scene/animationLoop.js';
 import { startFollowingPlanet } from './camera/cameraFollowState.js';
 import { initFlyout, openFlyout } from './ui/flyout.js';
 import { setCurrentPlanet } from './camera/navigation.js';
 import * as THREE from 'three';
+import { planetInfoMap } from './data/planetData.js';
+import { showAchievementNotification } from './ui/achievements/achievementsNotificationFlyout.js';
+import { addNewPlanetVisited, checkHexClientAchievement, checkCTAAchievement, listenForKonamiCode } from './ui/achievements/achievementChecker.js';
 
 initFlyout();
 
@@ -12,7 +15,7 @@ const { scene, camera, renderer } = setupScene();
 loadModels(scene);
 animate(scene, camera, renderer);
 
-const raycaster = new THREE.Raycaster();
+export const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
 function onClick(event) {
@@ -29,7 +32,21 @@ function onClick(event) {
       console.warn("Clicked mesh doesn't map to a planet model");
       return;
     }
+    if (clickedMesh.name === 'HexClient') {
+      checkHexClientAchievement();
+    }
+    else if (clickedMesh.name === 'Achievements' && !planetInfoMap[clickedMesh.name].skills['Russel ?!'].isDone)
+    {
+      planetInfoMap[clickedMesh.name].skills['Russel ?!'].isDone = true; // Unlock the Teapot
+      orbitingBodies.forEach(body => {
+        if (body.name === 'Achievements') {
+          body.trail = []; // Make the Teapot visible
+          showAchievementNotification('Russel ?!');
+        }
+      });
+    }
     setCurrentPlanet(clickedMesh.name);
+    addNewPlanetVisited(clickedMesh.name);
     startFollowingPlanet(planetModel);
     openFlyout(clickedMesh.name);
   }
@@ -55,3 +72,16 @@ window.onFlyoutClosed = () => {
   document.querySelector('#flyout button').addEventListener('click', () => {
   stopFollowing(camera);
 });}
+
+
+listenForKonamiCode();
+document.addEventListener("DOMContentLoaded", () => {
+  const socialLinks = document.querySelectorAll('.social-links a');
+
+  socialLinks.forEach(link => {
+    link.addEventListener('click', (event) => {
+      const title = link.getAttribute('aria-label');
+      checkCTAAchievement(title);
+    });
+  });
+});

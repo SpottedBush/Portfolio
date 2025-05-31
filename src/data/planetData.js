@@ -58,7 +58,7 @@ export const planetInfoMap = {
         initialOffset: 10,
         orbitingTrail: [],
         orbitingTrailLineColor: null,
-        hitboxRadius: 0.5,        
+        hitboxRadius: 0.5,
         modelReference: '"Enchanting Table" (https://skfb.ly/6V7Qq) by Brendan George is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).',
     },
     PADI: {
@@ -195,7 +195,7 @@ export const planetInfoMap = {
         name: 'Icarusight',
         description: 'Community detection algorithm on graphs for Cdiscount in order to detect doubloons.',
         skills: ["Neo4j", "Netwokx", "NLP (CountVectorizer, TF-IDF, TopicModelling)", "Jupyter Notebook", "Community detection algorithms (Louvain, …)",
-            "Graph oriented ML","Python", "Machine Learning", "Data Science"],
+            "Graph oriented ML", "Python", "Machine Learning", "Data Science"],
         year: "September 2023 - February 2024",
         location: 'Bordeaux, France',
         link: 'https://github.com/SpottedBush/Icarusight',
@@ -236,7 +236,7 @@ export const planetInfoMap = {
         name: 'Graph Neural Network applied for chess',
         description: 'Creation of an AI capable of labeling blunders from a player then suggesting puzzles to help the player improve.',
         link: 'https://github.com/SpottedBush/LRE',
-        skills: ["Python, C++", 
+        skills: ["Python, C++",
             "PyTorch, Pychess",
             "Graph Neural Networks (GNN)",
             "Chess",
@@ -256,5 +256,85 @@ export const planetInfoMap = {
         orbitingTrail: [],
         orbitingTrailLineColor: null,
         modelReference: 'Knight chess piece by Poly by Google [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/aW5HcCo0KZa)',
+    },
+    Achievements: {
+        name: 'Achievements,',
+        description: 'Looking for challenges? \
+        Here you can find all the achievements you can get in my portfolio.',
+        link: 'https://en.wikipedia.org/wiki/Russell%27s_teapot',
+        skills: // Achievements
+        {
+            "Russel ?!":
+            {
+                description: "Find the \"hidden\" teapot! \\o/",
+                icon: 'icons/achievements/russels_teapot_icon.png',
+                isDone: false,
+                reward: "Teapot trail unlocked, it also accessible via navigation",
+            },
+            
+            "Around the world":
+            {
+                description: "Check every planet",
+                icon: 'icons/achievements/around_the_world_icon.jpg',
+                isDone: false,
+                reward: "Unlocks the music player",
+            },
+            
+            "Konami Code":
+            {
+                description: "Was worth a try...",
+                icon: 'icons/achievements/konami_code_icon.jpg',
+                isDone: false,
+                reward: "Unlocks the Rocket Ship",
+            },
+            
+            "Biggest fan (CTA)":
+            {
+                description: "Check every CTA link",
+                icon: 'icons/achievements/PP_Spotted_Bush.png',
+                isDone: false,
+                reward: "Unlocks camera controls",
+            },
+            
+            "It won't open...":
+            {
+                description: "Hextech chest aren't designed for it, stop trying.",
+                icon: 'icons/achievements/hextech_chest_gragas_icon_resized.png',
+                isDone: false,
+                reward: "Unlocks legacy cursor. How stylish!",
+            },
+            
+            "Space Lover":
+            {
+                description: "Travel 1000 units of distance",
+                icon: 'icons/achievements/space_lover_icon_resized.png',
+                isDone: false,
+                reward: "Unlocks the boost and rainbow trail for the rocket ship",
+            },
+            
+            "100%": 
+            {
+                description: "You finished my portfolio! Congrats, hope you enjoyed it! :)",
+                icon: 'icons/achievements/100_percent_icon.png',
+                isDone: false,
+                reward: "Rick rolled"
+            },
+
+            // {"Code cheater": "Check the code in search for achievements", isDone: true, reward: None, respect: -1000}
+        },
+        year: "1965",
+        location: 'Cygnus X-1',
+        icon: 'icons/teapot_icon.jpg',
+        modelPath: 'planets/teapot.glb',
+        modelScale: 15,
+        modelRotSpeed: 0.01,
+        orbiting: true,
+        orbitingSpeed: 1,
+        orbitingRadius: 500,
+        hitboxRadius: 0.5,
+        initialOffset: 90,
+        orbitingTrail: null,
+        orbitingTrailLineColor: null,
+        modelReference: 'Teapot by Ashley Alicea [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/4JhDaBp6gJj)',
     },
 };

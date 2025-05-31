@@ -4,13 +4,20 @@
   top: 0;
   bottom: 0;
   width: 300px;
-  /* padding: 20px; */
-  background: #111;
-  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #222e38;
+  color: #fff;
   overflow-y: auto;
-  /* transform: translateX(-100%); */
-  transition: transform 0.3s ease;
   z-index: 9999;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 2px 0 16px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-420px); opacity: 1;
+  transition: transform 0.45s cubic-bezier(.4,2,.6,1), opacity 0.45s;
 }
 
 .flyout-panel.open {
@@ -45,7 +52,14 @@
 }
 
 .flyout-link {
-  color: #00aaff;
+  color: #4ea1f3;  /* soft, modern blue */
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s ease;
+}
+
+#flyout-link a:hover {
+  color: #72c1ff;  /* lighter on hover */
   text-decoration: underline;
 }
 
@@ -53,14 +67,22 @@
   position: fixed;
   left: 0;
   width: 300px;
-  background-color: #111;
+  background-color: #222e38;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-  color: white;
-  overflow-y: auto;
+  color: #fff;
+  overflow-y: hidden;
+  overflow-y: scroll;       /* Enable scrolling */
+  scrollbar-width: none;    /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  display: none;
   z-index: 9999;
+}
+/* Chrome, Edge, Safari */
+.flyout::-webkit-scrollbar {
   display: none;
 }
+
 #flyout.open {
   display: block;
 }
@@ -68,6 +90,7 @@
 #flyout-skills {
   margin: 10px 0;
   padding-left: 20px;
+  overflow-x: hidden;
   list-style-type: disc;
   color: white;
 }
@@ -76,11 +99,11 @@
   margin-top: 10px;
   font-size: 14px;
   font-style: italic;
-  color: #aaa;
+  color: #888;
 }
 /* Add a hover effect for the flyout panel */
 .flyout-panel:hover {
-  background: #222;
+  background: #222e38;
 }
 
 #flyout-skills-label {
@@ -90,7 +113,7 @@
 }
 
 #flyout-location {
-  color: #ccc;
+  color: #888;
   font-style: italic;
 }
 
