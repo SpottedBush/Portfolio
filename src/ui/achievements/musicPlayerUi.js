@@ -1,187 +1,170 @@
 // musicPlayerUi.js
-
-function createPlayerContainer() {
-    const player = document.createElement('div');
-    Object.assign(player.style, {
-        position: 'fixed',
-        left: '50%',
-        bottom: '30px',
-        transform: 'translateX(-50%)',
-        background: 'rgba(30,30,30,0.95)',
-        borderRadius: '12px',
-        boxShadow: '0 2px 12px rgba(0,0,0,0.3)',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '10px 24px',
-        zIndex: 9999,
-        gap: '16px'
-    });
-    return player;
-}
-
-function getMusicFiles() {
-    return [
-        'musics/tracks/test1.mp3',
-        'musics/tracks/test2.mp3',
-    ];
-}
-
-function createHeader(musicFiles, currentTrack) {
-    const header = document.createElement('div');
-    Object.assign(header.style, {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: '8px',
-        gap: '16px'
-    });
-
-    const coverImg = document.createElement('img');
-    Object.assign(coverImg.style, {
-        width: '48px',
-        height: '48px',
-        objectFit: 'cover',
-        borderRadius: '8px',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
-    });
-    coverImg.src = getCoverSrc(musicFiles[currentTrack]);
-
-    const trackTitle = document.createElement('span');
-    Object.assign(trackTitle.style, {
-        color: '#1DB954', // Spotify green
-        fontSize: '18px',
-        fontWeight: 'bold'
-    });
-    trackTitle.textContent = getTrackTitle(musicFiles[currentTrack]);
-
-    header.appendChild(coverImg);
-    header.appendChild(trackTitle);
-
-    return { header, coverImg, trackTitle };
-}
-
-function getCoverSrc(musicFile) {
-    const fileName = musicFile.split('/').pop().replace('.mp3', '.png');
-    return `musics/covers/${fileName}`;
-}
-
-function getTrackTitle(musicFile) {
-    return musicFile.split('/').pop().replace('.mp3', '');
-}
-
-function createAudioElement(src) {
-    const audio = document.createElement('audio');
-    audio.src = src;
-    audio.preload = 'auto';
-    return audio;
-}
-
-function createButton(label, title) {
-    const btn = document.createElement('button');
-    btn.textContent = label;
-    btn.title = title;
-    Object.assign(btn.style, {
-        fontSize: '20px',
-        margin: '0 8px',
-        background: 'none',
-        border: 'none',
-        color: '#fff',
-        cursor: 'pointer',
-        outline: 'none',
-        padding: '6px 10px',
-        borderRadius: '6px'
-    });
-    btn.onmouseover = () => btn.style.background = 'rgba(255,255,255,0.1)';
-    btn.onmouseout = () => btn.style.background = 'none';
-    return btn;
-}
-
-function createTrackName(musicFiles, currentTrack) {
-    const trackName = document.createElement('span');
-    Object.assign(trackName.style, {
-        color: '#fff',
-        fontSize: '16px',
-        margin: '0 12px'
-    });
-    trackName.textContent = musicFiles[currentTrack].split('/').pop();
-    return trackName;
-}
-
-function updateTrackInfo({ musicFiles, currentTrack, trackTitle, coverImg, trackName, audio }) {
-    const fileName = musicFiles[currentTrack].split('/').pop();
-    trackTitle.textContent = fileName.replace('.mp3', '');
-    coverImg.src = getCoverSrc(musicFiles[currentTrack]);
-    trackName.textContent = fileName;
-    audio.src = musicFiles[currentTrack];
-}
+import { Howl } from 'howler';
 
 export function addMusicPlayer() {
-    if (document.getElementById('achievement-music-player')) return;
+    const playlist = [
+        { src: 'musics/tracks/test1.mp3', name: 'Test Track 1' },
+        { src: 'musics/tracks/test2.mp3', name: 'Test Track 2' },
+        { src: 'musics/tracks/test3.mp3', name: 'Test Track 3' }
+    ];
 
-    const musicFiles = getMusicFiles();
-    let currentTrack = 0;
-    let isPlaying = false;
+    let currentTrackIndex = 0;
+    let sound;
 
-    const player = createPlayerContainer();
-    player.id = 'achievement-music-player';
+    // Create UI container
+    const player = document.createElement('div');
+    player.id = 'music-player';
+    player.style.position = 'fixed';
+    player.style.bottom = '20px';
+    player.style.left = '50%';
+    player.style.transform = 'translateX(-50%)';
+    player.style.background = '#111';
+    player.style.borderRadius = '12px';
+    player.style.padding = '16px';
+    player.style.display = 'flex';
+    player.style.flexDirection = 'column';
+    player.style.alignItems = 'center';
+    player.style.gap = '12px';
+    player.style.zIndex = '9999';
+    player.style.boxShadow = '0 4px 12px rgba(0,0,0,0.4)';
+    player.style.color = '#fff';
+    player.style.fontFamily = 'sans-serif';
+    player.style.fontSize = '14px';
+    player.style.minWidth = '400px';
 
-    // Header
-    const { header, coverImg, trackTitle } = createHeader(musicFiles, currentTrack);
-    player.appendChild(header);
+    // Controls row
+    const controlsRow = document.createElement('div');
+    controlsRow.style.display = 'flex';
+    controlsRow.style.justifyContent = 'center';
+    controlsRow.style.gap = '20px';
 
-    // Audio
-    const audio = createAudioElement(musicFiles[currentTrack]);
+    const prevBtn = document.createElement('button');
+    prevBtn.textContent = '⏮️';
 
-    // Track name
-    const trackName = createTrackName(musicFiles, currentTrack);
+    const playPauseBtn = document.createElement('button');
+    playPauseBtn.textContent = '▶️';
 
-    // Controls
-    const prevBtn = createButton('⏮️', 'Previous');
-    const playBtn = createButton('▶️', 'Play/Pause');
-    const nextBtn = createButton('⏭️', 'Next');
+    const nextBtn = document.createElement('button');
+    nextBtn.textContent = '⏭️';
 
-    function playTrack() {
-        audio.play();
-    }
+    controlsRow.appendChild(prevBtn);
+    controlsRow.appendChild(playPauseBtn);
+    controlsRow.appendChild(nextBtn);
 
-    function pauseTrack() {
-        audio.pause();
-    }
+    // Content row
+    const contentRow = document.createElement('div');
+    contentRow.style.display = 'flex';
+    contentRow.style.alignItems = 'center';
+    contentRow.style.gap = '12px';
+    contentRow.style.width = '100%';
 
-    function goToTrack(index) {
-        currentTrack = (index + musicFiles.length) % musicFiles.length;
-        updateTrackInfo({ musicFiles, currentTrack, trackTitle, coverImg, trackName, audio });
-        if (isPlaying) playTrack();
-    }
+    const cover = document.createElement('img');
+    cover.style.width = '60px';
+    cover.style.height = '60px';
+    cover.style.objectFit = 'cover';
+    cover.style.borderRadius = '8px';
 
-    prevBtn.onclick = () => goToTrack(currentTrack - 1);
-    nextBtn.onclick = () => goToTrack(currentTrack + 1);
+    const progressBar = document.createElement('input');
+    progressBar.type = 'range';
+    progressBar.min = 0;
+    progressBar.max = 100;
+    progressBar.value = 0;
+    progressBar.style.flex = '1';
 
-    playBtn.onclick = () => {
-        if (audio.paused) playTrack();
-        else pauseTrack();
-    };
+    const volumeContainer = document.createElement('div');
+    volumeContainer.style.display = 'flex';
+    volumeContainer.style.alignItems = 'center';
+    volumeContainer.style.gap = '6px';
 
-    audio.onplay = () => {
-        isPlaying = true;
-        playBtn.textContent = '⏸️';
-    };
-    audio.onpause = () => {
-        isPlaying = false;
-        playBtn.textContent = '▶️';
-    };
-    audio.onended = () => nextBtn.onclick();
+    const volumeIcon = document.createElement('span');
+    volumeIcon.textContent = '🔊';
 
-    audio.onloadedmetadata = () => {
-        trackName.textContent = musicFiles[currentTrack].split('/').pop();
-    };
+    const volumeSlider = document.createElement('input');
+    volumeSlider.type = 'range';
+    volumeSlider.min = 0;
+    volumeSlider.max = 1;
+    volumeSlider.step = 0.01;
+    volumeSlider.value = 0.5;
 
-    // Assemble
-    player.appendChild(prevBtn);
-    player.appendChild(playBtn);
-    player.appendChild(nextBtn);
+    volumeContainer.appendChild(volumeIcon);
+    volumeContainer.appendChild(volumeSlider);
+
+    contentRow.appendChild(cover);
+    contentRow.appendChild(progressBar);
+    controlsRow.appendChild(volumeContainer);
+
+    // Track name row
+    const trackName = document.createElement('div');
+    trackName.style.textAlign = 'center';
+    trackName.style.marginTop = '4px';
+
+    // Append all rows
     player.appendChild(trackName);
-    player.appendChild(audio);
-
+    player.appendChild(contentRow);
+    player.appendChild(controlsRow);
     document.body.appendChild(player);
+
+    // Logic
+    function loadTrack(index) {
+        if (sound) sound.unload();
+
+        const track = playlist[index];
+        const fileName = track.src.split('/').pop().split('.')[0];
+        cover.src = `musics/${fileName}.jpg`;
+        trackName.textContent = track.name;
+
+        sound = new Howl({
+            src: [track.src],
+            loop: false,
+            volume: parseFloat(volumeSlider.value),
+            onend: () => nextTrack(),
+            onplay: () => requestAnimationFrame(updateProgress)
+        });
+    }
+
+    function togglePlayPause() {
+        if (sound.playing()) {
+            sound.pause();
+            playPauseBtn.textContent = '▶️';
+        } else {
+            sound.play();
+            playPauseBtn.textContent = '⏸️';
+        }
+    }
+
+    function nextTrack() {
+        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+        loadTrack(currentTrackIndex);
+        sound.play();
+        playPauseBtn.textContent = '⏸️';
+    }
+
+    function prevTrack() {
+        currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+        loadTrack(currentTrackIndex);
+        sound.play();
+        playPauseBtn.textContent = '⏸️';
+    }
+
+    function updateProgress() {
+        if (!sound.playing()) return;
+        const seek = sound.seek() || 0;
+        progressBar.value = (seek / sound.duration()) * 100;
+        requestAnimationFrame(updateProgress);
+    }
+
+    progressBar.addEventListener('input', () => {
+        const seekTime = (progressBar.value / 100) * sound.duration();
+        sound.seek(seekTime);
+    });
+
+    volumeSlider.addEventListener('input', () => {
+        if (sound) sound.volume(parseFloat(volumeSlider.value));
+    });
+
+    playPauseBtn.onclick = togglePlayPause;
+    nextBtn.onclick = nextTrack;
+    prevBtn.onclick = prevTrack;
+
+    loadTrack(currentTrackIndex);
 }

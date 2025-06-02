@@ -1,5 +1,8 @@
+import { plane } from "three/examples/jsm/Addons.js";
 import { planetInfoMap } from "../../data/planetData";
+import { orbitingBodies } from "../../scene/loadModels";
 import { showAchievementNotification } from "./achievementsNotificationFlyout";
+import { rocketShipState } from "./rocketShip";
 
 const planetVisitedSet = new Set();
 const totalNbPlanets = Object.entries(planetInfoMap).length;
@@ -75,15 +78,29 @@ export function listenForKonamiCode() {
     window.addEventListener("keydown", keyHandler);
 }
 
+export function checkSpaceLoverAchievement() {
+    const achievement = planetInfoMap['Achievements'].skills['Space Lover'];
+    if (achievement.isDone) return;
+    let rocket = orbitingBodies.find(body => body.name === 'RocketShip');
+    if (!rocket) {
+        console.warn("RocketShip not found in orbiting bodies");
+        return;
+    }
+    if (rocketShipState.traveledDistance >= 30) {
+        achievement.isDone = true;
+        showAchievementNotification('Space Lover');
+    }
+}
+
 export function check100PercentAchievement() {
     const achievement = planetInfoMap['Achievements'].skills['100%'];
     if (achievement.isDone) return;
-
-    const allSkillsDone = Object.values(planetInfoMap).every(planet => {
-        return Object.values(planet.skills).every(skill => skill.isDone);
-    });
-    if (allSkillsDone) {
-        achievement.isDone = true;
-        showAchievementNotification('100%');
+    const achievements = planetInfoMap['Achievements'].skills;
+    for (const skill in achievements) {
+        if (!achievements[skill].isDone && skill !== '100%') {
+            return; // If any skill is not done, we can't have 100%
+        }
     }
+    achievement.isDone = true;
+    showAchievementNotification('100%');
 }

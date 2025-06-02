@@ -3,12 +3,13 @@ import * as THREE from 'three';
 import { animatedMixers, rotatingModels, orbitingBodies } from './loadModels.js';
 import { updateCameraFollowing } from '../camera/cameraFollowState.js';
 import { PhysicsInfoMap } from '../data/physicsData.js';
+import { rocketShipState, updateSmoke } from '../ui/achievements/rocketShip.js';
 
 const blackHolePosition = PhysicsInfoMap.blackHolePosition.clone();
 const G = PhysicsInfoMap.G;
 const M = PhysicsInfoMap.M;
 const drag = PhysicsInfoMap.drag;
-const maxTrailLength = PhysicsInfoMap.maxTrailLength ?? 150;
+let maxTrailLength = PhysicsInfoMap.maxTrailLength ?? 150;
 
 let isPaused = false;
 const fixedDt = 1 / 60; // 60 FPS fixed physics timestep in seconds
@@ -49,14 +50,13 @@ export function animate(scene, camera, renderer) {
     orbitingBodies.forEach((body) => {
       const { mesh, velocity } = body;
       if (body.name === 'RocketShip') {
-        // Object.entries(body).forEach(([key, value]) => {
-        //   console.log(`${key}:`, value);
-        // });
-        // RocketShip is not affected by the black hole
         mesh.position.add(velocity.clone().multiplyScalar(deltaTime));
+        if (body.trail) {
+          updateTrail(scene, body);
+        }
         return;
       }
-      if (mesh.position === undefined){
+      if (mesh.position === undefined) {
         console.warn(`Body ${body.name} does not have a position defined.`);
         return;
       }
@@ -73,12 +73,15 @@ export function animate(scene, camera, renderer) {
 
       // Update orbit trail
       if (body.trail) {
-      updateTrail(scene, body);
+        updateTrail(scene, body);
       }
     });
   }
 
   function updateTrail(scene, body) {
+    if (body.name === 'RocketShip') {
+      maxTrailLength = 100; // For RocketShip, we use a shorter trail
+    }
     const { mesh, trail } = body;
     trail.push(mesh.position.clone());
     if (trail.length > maxTrailLength) {
@@ -91,18 +94,26 @@ export function animate(scene, camera, renderer) {
     }
 
     const geometry = new THREE.BufferGeometry().setFromPoints(trail);
+    let material;
     const color = body.trailLineColor ?? 0xffffff;
 
-    const material = new THREE.LineBasicMaterial({ color });
+    if (Array.isArray(color)) {
+      geometry.setAttribute('color', new THREE.Float32BufferAttribute(color, 3));
+      material = new THREE.LineBasicMaterial({ vertexColors: true });
+      material.linewidth = 50;
+    } else {
+      material = new THREE.LineBasicMaterial({ color });
+    }
     const line = new THREE.Line(geometry, material);
 
     body.trailLine = line;
     scene.add(line);
 
     body.trail.push(mesh.position.clone());
-    if (body.trail.length > PhysicsInfoMap.maxTrailLength) {
+    if (body.trail.length > maxTrailLength) {
       body.trail.shift();
     }
+    maxTrailLength = PhysicsInfoMap.maxTrailLength ?? 150;
   }
 
   const clock = new THREE.Clock();
@@ -116,6 +127,9 @@ export function animate(scene, camera, renderer) {
     animatedMixers.forEach((mixer) => mixer.update(delta));
     updateRotations();
     updateCameraFollowing(camera);
+    if (rocketShipState.isBoostUnlocked) {
+      updateSmoke(delta); // Update smoke particles every frame
+    }
     renderer.render(scene, camera);
   }
 

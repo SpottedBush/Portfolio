@@ -3,6 +3,7 @@ import { startFollowingPlanet, stopFollowingPlanet } from '../camera/cameraFollo
 import { openFlyout, closeFlyout } from '../ui/flyout.js';
 import { planetInfoMap } from '../data/planetData.js';
 import { addNewPlanetVisited } from '../ui/achievements/achievementChecker.js';
+import { rocketShipState } from '../ui/achievements/rocketShip.js';
 
 let currentPlanetIndex = -1;
 
@@ -24,9 +25,18 @@ function showPlanetAtIndex(index) {
   const newPlanet = orbitingBodies[wrappedIndex].mesh;
   name = orbitingBodies[wrappedIndex].name;
   setCurrentPlanet(newPlanet);
-  addNewPlanetVisited(name);
   startFollowingPlanet(newPlanet);
+  if (name === 'RocketShip')
+  {
+    closeFlyout(); // This reset camera position and lookat
+    rocketShipState.isRocketShipFollowed = true;
+    setCurrentPlanet(newPlanet);
+    startFollowingPlanet(newPlanet);
+    return;
+  }
+  rocketShipState.isRocketShipFollowed = false;
   openFlyout(name);
+  addNewPlanetVisited(name);
 }
 
 export let currentPlanet = null;
@@ -46,6 +56,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         currentPlanet = null;
         currentPlanetIndex = -1;
+        rocketShipState.isRocketShipFollowed = false;
         stopFollowingPlanet();
         closeFlyout();
         return;

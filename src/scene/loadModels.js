@@ -35,9 +35,9 @@ function addStarField(scene) {
   const positions = [];
 
   for (let i = 0; i < starCount; i++) {
-    const x = 500 + (Math.random() - 0.5) * 3000;
-    const y = 500 + (Math.random() - 0.5) * 3000;
-    const z = 500 + (Math.random() - 0.5) * 3000;
+    const x = (Math.random() - 0.5) * 3000;
+    const y = (Math.random() - 0.5) * 3000;
+    const z = (Math.random() - 0.5) * 3000;
     positions.push(x, y, z);
   }
 

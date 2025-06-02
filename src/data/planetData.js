@@ -285,7 +285,7 @@ export const planetInfoMap = {
                 description: "Was worth a try...",
                 icon: 'icons/achievements/konami_code_icon.jpg',
                 isDone: false,
-                reward: "Unlocks the Rocket Ship",
+                reward: "Unlocks the Rocket Ship, use WASD to control it",
             },
             
             "Biggest fan (CTA)":
@@ -309,7 +309,7 @@ export const planetInfoMap = {
                 description: "Travel 1000 units of distance",
                 icon: 'icons/achievements/space_lover_icon_resized.png',
                 isDone: false,
-                reward: "Unlocks the boost and rainbow trail for the rocket ship",
+                reward: "Unlocks the boost for the rocket ship, press forward twice to activate it",
             },
             
             "100%": 

@@ -8,6 +8,7 @@ import * as THREE from 'three';
 import { planetInfoMap } from './data/planetData.js';
 import { showAchievementNotification } from './ui/achievements/achievementsNotificationFlyout.js';
 import { addNewPlanetVisited, checkHexClientAchievement, checkCTAAchievement, listenForKonamiCode } from './ui/achievements/achievementChecker.js';
+import { rocketShipState } from './ui/achievements/rocketShip.js';
 
 initFlyout();
 
@@ -32,7 +33,13 @@ function onClick(event) {
       console.warn("Clicked mesh doesn't map to a planet model");
       return;
     }
-    if (clickedMesh.name === 'HexClient') {
+    if (clickedMesh.name === 'RocketShip') {
+      rocketShipState.isRocketShipFollowed = true;
+    }
+    else if (clickedMesh.name === 'BlackHole') {
+      rocketShipState.isRocketShipFollowed = false;
+    }
+    else if (clickedMesh.name === 'HexClient') {
       checkHexClientAchievement();
     }
     else if (clickedMesh.name === 'Achievements' && !planetInfoMap[clickedMesh.name].skills['Russel ?!'].isDone)

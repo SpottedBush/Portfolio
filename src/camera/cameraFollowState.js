@@ -2,6 +2,7 @@
 import * as THREE from 'three';
 import { PhysicsInfoMap } from '../data/physicsData.js';
 import { DEFAULT_CAMERA_OFFSET } from '../scene/setupScene.js';
+import { rocketShipState } from '../ui/achievements/rocketShip.js';
 
 export const cameraFollowState = {
   active: false,
