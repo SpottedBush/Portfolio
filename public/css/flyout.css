@@ -26,12 +26,12 @@
 
 .flyout-close-btn {
   position: absolute;
-  top: 0.2px;
-  right: 0.2px;
+  top: 1px;
+  right: 1px;
   background: transparent;
   color: grey;
   border: none;
-  font-size: 1.2em;
+  font-size: 1.8em;
   cursor: pointer;
 }
 
