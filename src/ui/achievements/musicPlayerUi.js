@@ -1,36 +1,52 @@
 // musicPlayerUi.js
 import { Howl } from 'howler';
 
-export function addMusicPlayer() {
-    const playlist = [
-        { src: 'musics/tracks/test1.mp3', name: 'Test Track 1' },
-        { src: 'musics/tracks/test2.mp3', name: 'Test Track 2' },
-        { src: 'musics/tracks/test3.mp3', name: 'Test Track 3' }
-    ];
+const playlist = [
+    { src: 'musics/tracks/space_ambient_cinematic.mp3', name: 'Space Ambiant Cinematic - DELOSound', cover: 'musics/covers/space_ambiant_cinematic_cover.png' },
+    { src: 'musics/tracks/Space Junk Galaxy - Super Mario Galaxy OST.mp3', name: 'Space Junk Galaxy - Super Mario Galaxy', cover: 'musics/covers/super_mario_galaxy_cover.png' },
+    { src: 'musics/tracks/Outer Wilds - Final Voyage.mp3', name: 'Final Voyage - Outer Wilds', cover: 'musics/covers/outer_wilds_cover.png' },
+    { src: 'musics/tracks/Celeste - Resurrections.mp3', name: 'Resurrections - Celeste', cover: 'musics/covers/celeste_cover.png' },
+    { src: 'musics/tracks/Minecraft - C418 - Aria Math.mp3', name: 'Aria Math - Minecraft (C418)', cover: 'musics/covers/minecraft_cover.png' },
+];
 
-    let currentTrackIndex = 0;
-    let sound;
+export let sound;
+export function setBackgroundMusic() {
+    sound = new Howl({
+        src: [playlist[0].src],
+        autoplay: true,
+        loop: true,
+        volume: 0.5,
+    });
+    sound.play();
+}
+
+export function addMusicPlayer() {
+
+
+    let currentTrackIndex = 1;
 
     // Create UI container
     const player = document.createElement('div');
     player.id = 'music-player';
     player.style.position = 'fixed';
-    player.style.bottom = '20px';
+    player.style.bottom = '2%';
     player.style.left = '50%';
     player.style.transform = 'translateX(-50%)';
     player.style.background = '#111';
-    player.style.borderRadius = '12px';
-    player.style.padding = '16px';
+    player.style.borderRadius = '10px';
+    player.style.padding = '1.2%';
     player.style.display = 'flex';
     player.style.flexDirection = 'column';
     player.style.alignItems = 'center';
-    player.style.gap = '12px';
+    player.style.gap = '1%';
     player.style.zIndex = '9999';
-    player.style.boxShadow = '0 4px 12px rgba(0,0,0,0.4)';
+    player.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
     player.style.color = '#fff';
     player.style.fontFamily = 'sans-serif';
-    player.style.fontSize = '14px';
-    player.style.minWidth = '400px';
+    player.style.fontSize = '0.9vw';
+    player.style.width = '60vw';
+    player.style.maxWidth = '320px';
+    player.style.minWidth = '140px';
 
     // Controls row
     const controlsRow = document.createElement('div');
@@ -39,13 +55,29 @@ export function addMusicPlayer() {
     controlsRow.style.gap = '20px';
 
     const prevBtn = document.createElement('button');
-    prevBtn.textContent = '⏮️';
+    const prevImg = document.createElement('img');
+    prevImg.src = 'icons/musicPlayerIcons/previous_song_button_icon.png';
+    prevImg.alt = 'prevBtn';
+    prevImg.style.width = '10px';
+    prevImg.style.height = '10px';
+    prevBtn.appendChild(prevImg);
+
 
     const playPauseBtn = document.createElement('button');
-    playPauseBtn.textContent = '▶️';
+    const playImg = document.createElement('img');
+    playImg.src = 'icons/musicPlayerIcons/play_song_button_icon.png';
+    playImg.alt = 'playBtn';
+    playImg.style.width = '10px';
+    playImg.style.height = '10px';
+    playPauseBtn.appendChild(playImg);
 
     const nextBtn = document.createElement('button');
-    nextBtn.textContent = '⏭️';
+    const nextImg = document.createElement('img');
+    nextImg.src = 'icons/musicPlayerIcons/next_song_button_icon.png';
+    nextImg.alt = 'nextBtn';
+    nextImg.style.width = '10px';
+    nextImg.style.height = '10px';
+    nextBtn.appendChild(nextImg);
 
     controlsRow.appendChild(prevBtn);
     controlsRow.appendChild(playPauseBtn);
@@ -77,7 +109,12 @@ export function addMusicPlayer() {
     volumeContainer.style.gap = '6px';
 
     const volumeIcon = document.createElement('span');
-    volumeIcon.textContent = '🔊';
+    const volumeImg = document.createElement('img');
+    volumeImg.src = 'icons/musicPlayerIcons/volume_button_icon.png';
+    volumeImg.alt = 'Volume';
+    volumeImg.style.width = '10px';
+    volumeImg.style.height = '10px';
+    volumeIcon.appendChild(volumeImg);
 
     const volumeSlider = document.createElement('input');
     volumeSlider.type = 'range';
@@ -96,7 +133,7 @@ export function addMusicPlayer() {
     // Track name row
     const trackName = document.createElement('div');
     trackName.style.textAlign = 'center';
-    trackName.style.marginTop = '4px';
+    trackName.style.marginTop = '2px';
 
     // Append all rows
     player.appendChild(trackName);
@@ -109,8 +146,7 @@ export function addMusicPlayer() {
         if (sound) sound.unload();
 
         const track = playlist[index];
-        const fileName = track.src.split('/').pop().split('.')[0];
-        cover.src = `musics/${fileName}.jpg`;
+        cover.src = track.cover;
         trackName.textContent = track.name;
 
         sound = new Howl({
@@ -122,13 +158,19 @@ export function addMusicPlayer() {
         });
     }
 
+    function setPlayPauseIcon(isPlaying) {
+        playImg.src = isPlaying
+            ? 'icons/musicPlayerIcons/pause_song_button_icon.png'
+            : 'icons/musicPlayerIcons/play_song_button_icon.png';
+    }
+
     function togglePlayPause() {
         if (sound.playing()) {
             sound.pause();
-            playPauseBtn.textContent = '▶️';
+            setPlayPauseIcon(false);
         } else {
             sound.play();
-            playPauseBtn.textContent = '⏸️';
+            setPlayPauseIcon(true);
         }
     }
 
@@ -136,14 +178,14 @@ export function addMusicPlayer() {
         currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
         loadTrack(currentTrackIndex);
         sound.play();
-        playPauseBtn.textContent = '⏸️';
+        setPlayPauseIcon(true);
     }
 
     function prevTrack() {
         currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
         loadTrack(currentTrackIndex);
         sound.play();
-        playPauseBtn.textContent = '⏸️';
+        setPlayPauseIcon(true);
     }
 
     function updateProgress() {
@@ -167,4 +209,5 @@ export function addMusicPlayer() {
     prevBtn.onclick = prevTrack;
 
     loadTrack(currentTrackIndex);
+    togglePlayPause();
 }

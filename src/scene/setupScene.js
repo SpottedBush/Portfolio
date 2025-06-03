@@ -1,6 +1,7 @@
 // setupScene.js
 import * as THREE from 'three';
 import { PhysicsInfoMap } from '../data/physicsData.js';
+import { setBackgroundMusic } from '../ui/achievements/musicPlayerUi.js';
 
 export const DEFAULT_CAMERA_OFFSET = new THREE.Vector3(120, 50, 100);
 const BLACK_HOLE_POSITION = PhysicsInfoMap.blackHolePosition; // optional export for reusability
@@ -34,5 +35,6 @@ export function setupScene() {
   window.camera = camera;
   window.renderer = renderer;
   window.scene = scene;
+  setBackgroundMusic();
   return { scene, camera, renderer };
 }

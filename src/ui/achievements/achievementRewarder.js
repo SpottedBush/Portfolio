@@ -39,15 +39,30 @@ function addHoveringListeners() {
     function checkAndUpdateCursorHovering(event) {
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-        raycaster.setFromCamera(mouse, window.camera); // Assumes a global camera variable
+        raycaster.setFromCamera(mouse, window.camera);
+
         const intersects = raycaster.intersectObjects(clickableObjects, true);
+        const hoveredElem = document.elementFromPoint(event.clientX, event.clientY);
+
+        let shouldHover = false;
+
+        // 3D object hover
         if (intersects.length > 0) {
-            const obj = intersects[0].object;
-            document.body.style.cursor = `url(cursor/LoL_hover.cur), auto`;
-        } else {
-            document.body.style.cursor = `url(cursor/LoL.cur), auto`;
+            shouldHover = true;
         }
+
+        // DOM element hover
+        if (hoveredElem) {
+            const isInsideLink = hoveredElem.closest('a[href]'); // Checks parent chain for links
+            if (isInsideLink !== null) { // Doesn't work on Ubuntu config...
+                shouldHover = true;
+            }
+        }
+        document.body.style.cursor = shouldHover
+            ? `url(cursor/LoL_hover.cur), auto`
+            : `url(cursor/LoL.cur), auto`;
     }
+
     function animateCursor() {
         checkAndUpdateCursorHovering({ clientX: window.lastMouseX || 0, clientY: window.lastMouseY || 0 });
         requestAnimationFrame(animateCursor);
@@ -78,7 +93,7 @@ export function giveAchievementReward(achievementName) { // name2reward
         case 'Russel ?!':
             break; // This is handled in main.js because it requires a specific mesh interaction (adding trail)
         case 'Around the world':
-            planetInfoMap['Achievements'].skills['Around the world'].isDone = true;
+            // planetInfoMap['Achievements'].skills['Around the world'].isDone = true;
             addMusicPlayer();
             break;
         case 'Konami Code':

@@ -23,7 +23,7 @@ export function startFollowingPlanet(planetMesh) {
 export function stopFollowingPlanet() {
   cameraFollowState.active = false;
   cameraFollowState.target = null;
-  window.camera.position.copy(DEFAULT_CAMERA_OFFSET);
+  window.camera.position.copy(cameraFollowState.blackHolePosition.clone().add(DEFAULT_CAMERA_OFFSET));
   window.camera.lookAt(cameraFollowState.blackHolePosition);
 }
 

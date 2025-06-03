@@ -64,7 +64,7 @@ export function giveKonamiCodeReward() {
                 case "ShiftRight":
                     move.rotateDown = true;
                     break;
-                case "KeyF": move.rotateDown = true; break;
+                case "KeyF": move.rotateDown = true; break; // I am a psycho, using f for crouching :)
             }
         }
         function onKeyUp(e) {
@@ -80,7 +80,7 @@ export function giveKonamiCodeReward() {
                 case "ShiftRight":
                     move.rotateDown = false;
                     break;
-                case "KeyF": move.rotateDown = false; break;
+                case "KeyF": move.rotateDown = false; break; // I am a psycho, using f for crouching :)
             }
         }
 
@@ -123,12 +123,6 @@ export function giveSpaceLoverReward() {
     let wPressCount = 0;
     let body = orbitingBodies.find(b => b.name === "RocketShip");
     let rocketRef = body.mesh;
-    function activateBoost(rocket) {
-    }
-
-    function deactivateBoost(rocket) {
-        rocketShipState.isBoostActive = false;
-    }
 
     function onKeyDownBoost(e) {
         if (!rocketRef) return;
@@ -175,10 +169,8 @@ export function giveSpaceLoverReward() {
 }
 
 // ------ SMOKE PARTICLES ------ //
-
-
 const textureLoader = new THREE.TextureLoader();
-const smokeTexture = textureLoader.load('rainbow_smoke.png');
+const smokeTexture = textureLoader.load('misc/rainbow_smoke.png');
 const maxParticles = 100;
 const positions = new Float32Array(maxParticles * 3);
 const colors = new Float32Array(maxParticles * 3);

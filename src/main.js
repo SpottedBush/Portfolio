@@ -1,7 +1,7 @@
 import { setupScene } from './scene/setupScene.js';
 import { loadModels, clickableObjects, meshToModelMap, orbitingBodies } from './scene/loadModels.js';
 import { animate } from './scene/animationLoop.js';
-import { startFollowingPlanet } from './camera/cameraFollowState.js';
+import { startFollowingPlanet, stopFollowingPlanet } from './camera/cameraFollowState.js';
 import { initFlyout, openFlyout } from './ui/flyout.js';
 import { setCurrentPlanet } from './camera/navigation.js';
 import * as THREE from 'three';
@@ -38,6 +38,8 @@ function onClick(event) {
     }
     else if (clickedMesh.name === 'BlackHole') {
       rocketShipState.isRocketShipFollowed = false;
+      stopFollowingPlanet();
+
     }
     else if (clickedMesh.name === 'HexClient') {
       checkHexClientAchievement();

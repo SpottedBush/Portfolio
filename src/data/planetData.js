@@ -260,7 +260,7 @@ export const planetInfoMap = {
     Achievements: {
         name: 'Achievements,',
         description: 'Looking for challenges? \
-        Here you can find all the achievements you can get in my portfolio.',
+        Here you can find all the achievements you can get in my Starfolio.',
         link: 'https://en.wikipedia.org/wiki/Russell%27s_teapot',
         skills: // Achievements
         {
@@ -274,7 +274,7 @@ export const planetInfoMap = {
             
             "Around the world":
             {
-                description: "Check every planet",
+                description: "I don't own these musics, please don't sue me. >.<",
                 icon: 'icons/achievements/around_the_world_icon.jpg',
                 isDone: false,
                 reward: "Unlocks the music player",
@@ -290,7 +290,7 @@ export const planetInfoMap = {
             
             "Biggest fan (CTA)":
             {
-                description: "Check every CTA link",
+                description: "Hope you are a Twitch sub! >:)",
                 icon: 'icons/achievements/PP_Spotted_Bush.png',
                 isDone: false,
                 reward: "Unlocks camera controls",
@@ -314,7 +314,7 @@ export const planetInfoMap = {
             
             "100%": 
             {
-                description: "You finished my portfolio! Congrats, hope you enjoyed it! :)",
+                description: "You finished my Starfolio! Congrats, hope you enjoyed it! :)",
                 icon: 'icons/achievements/100_percent_icon.png',
                 isDone: false,
                 reward: "Rick rolled"

@@ -1,5 +1,5 @@
-# 🌌 Portfolio
-![screenshot](public/preview.png)
+# 🌌 Starfolio
+![screenshot](public/misc/preview.png)
 
 ---
 
@@ -10,7 +10,7 @@
 - Smooth camera transitions and flyout UI panels
 - Fully responsive and works across modern browsers
 
-#### [Live Demo](https://portfolio-spottedbushs-projects.vercel.app/)
+#### [Live Demo](https://Starfolio-spottedbushs-projects.vercel.app/)
 
 ---
 
