@@ -39,19 +39,10 @@
   transform: scale(1.1);
 }
 
-/* Prevent body from overflowing */
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;  /* Removes both vertical and horizontal scrollbars */
-  height: 100%;
-}
-
-
 #nav-help-container {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  top: 20px;
+  left: 20px;
   z-index: 1000;
   display: inline-block;
 }
@@ -60,22 +51,25 @@ html, body {
   background-color: #333;
   color: white;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   text-align: center;
   line-height: 32px;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 32px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   user-select: none;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0px rgba(255, 255, 255, 0.2);
   position: relative;
 }
 
 #nav-instructions {
   position: absolute;
-  bottom: 40px; /* above the button */
-  right: 20px;  /* to the left of the button */
+  top: 40px; /* above the button */
+  left: 55px;  /* to the left of the button */
   display: none;
   background: rgba(0, 0, 0, 0.75);
   color: white;

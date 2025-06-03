@@ -277,7 +277,7 @@ export const planetInfoMap = {
                 description: "I don't own these musics, please don't sue me. >.<",
                 icon: 'icons/achievements/around_the_world_icon.jpg',
                 isDone: false,
-                reward: "Unlocks the music player",
+                reward: "Unlocks the music player (and copyrighted musics)",
             },
             
             "Konami Code":
@@ -306,7 +306,7 @@ export const planetInfoMap = {
             
             "Space Lover":
             {
-                description: "Travel 1000 units of distance",
+                description: "Travel 1000 units of distance, Now the fun starts!",
                 icon: 'icons/achievements/space_lover_icon_resized.png',
                 isDone: false,
                 reward: "Unlocks the boost for the rocket ship, press forward twice to activate it",

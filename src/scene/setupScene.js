@@ -35,6 +35,7 @@ export function setupScene() {
   window.camera = camera;
   window.renderer = renderer;
   window.scene = scene;
+  
   setBackgroundMusic();
   return { scene, camera, renderer };
 }
